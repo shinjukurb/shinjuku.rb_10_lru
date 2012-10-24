@@ -26,18 +26,42 @@ describe LRUCache do
   end
 
   describe '#put' do
-    subject { cache.put 'a', '1' }
     let(:cache) { LRUCache.new }
 
-    it 'should set key and value'
+    context 'when cache size is under capacity' do
+      before { cache.put 'a', '1' }
+      subject { cache.size }
+      it 'should increment size' do
+        should == 1
+      end
+    end
 
     context 'when cache size is full' do
-      it 'should delete oldest value of key'
+      before do
+        cache.put 'a', '1'
+        cache.put 'b', '2'
+        cache.put 'c', '3'
+      end
+
+      it 'should equal capacity' do
+        cache.size.should == cache.capacity
+      end
+
+      it 'should delete oldest value of key' do
+        cache.get('a').should be_nil
+      end
     end
   end
 
   describe '#get' do
-    it 'should return value of key'
+    let(:cache) { LRUCache.new }
+
+    before do
+      cache.put 'a', '1'
+    end
+    it 'should return value of key' do
+      cache.get('a').should == '1' 
+    end
 
     context 'when cache is empty' do
       it 'should return cache having key'
