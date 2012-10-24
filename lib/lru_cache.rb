@@ -9,7 +9,7 @@ class LRUCache
   def size; @lru_cache.size end
 
   def put(key, value)
-    @lru_cache.delete(@lru_cache.keys[0]) if @lru_cache.size >= capacity
+    @lru_cache.delete(@lru_cache.keys[0]) if size >= capacity
     @lru_cache[key] = value
   end
 
