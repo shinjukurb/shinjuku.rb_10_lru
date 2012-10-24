@@ -1,13 +1,13 @@
 class LRUCache
+  attr_reader :capacity
 
-
-  def initialize(size=2)
+  def initialize(capacity=2)
     @lru_cache = {}
-    @size = size
+    @capacity = capacity
   end
 
   def put(key, value)
-    @lru_cache.delete(@lru_cache.keys[0]) if @lru_cache.size >= @size
+    @lru_cache.delete(@lru_cache.keys[0]) if @lru_cache.size >= capacity
     @lru_cache[key] = value
   end
 
