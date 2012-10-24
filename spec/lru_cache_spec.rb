@@ -16,7 +16,13 @@ describe LRUCache do
   end
 
   describe '#size' do
-    it 'should return current size of cache'
+    subject { cache.size }
+    let(:cache) { LRUCache.new 10000 }
+
+    before { cache.instance_variable_get(:@lru_cache).stub(:size) { 999 } }
+    it 'should return current size of cache' do
+      subject.should == 999
+    end
   end
 
   describe '#put' do
